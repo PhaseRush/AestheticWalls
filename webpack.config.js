@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/RotBox.ts',
+    entry: './src/Topography.ts',
 
     output: {
         filename: "bundle.js",
