@@ -1,23 +1,33 @@
 {
   "name": "AestheticWalls",
   "license": "MIT",
-  "author": {
-    "name": "PhaseRush",
-    "url": "https://www.github.com/PhaseRush"
-  },
+  "author": "PhaseRush (https://www.github.com/PhaseRush)",
   "version": "0.9.0",
   "dependencies": {
-    "p5": "^0.10.2"
+    "p5": "^0.10.2",
+    "ts-loader": "^6.2.1"
   },
   "devDependencies": {
     "@types/node": "^12.12.7",
     "@types/p5": "^0.9.0",
     "fuse-box": "^3.7.1",
     "typescript": "^3.7.2",
-    "uglify-js": "^3.6.8"
+    "uglify-js": "^3.6.8",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "compile": "tsc",
-    "sketch": "node fuse.js"
-  }
+    "compile": "tsc"
+  },
+  "description": "Dynamic and aesthetic wallpapers written for Wallpaper Engine",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhaseRush/AestheticWalls.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/PhaseRush/AestheticWalls/issues"
+  },
+  "homepage": "https://github.com/PhaseRush/AestheticWalls#readme"
 }

@@ -1,7 +1,7 @@
 import * as p5 from 'p5'
 
 const rotBox = function (p: p5) {
-    const strokeWeight = 150;
+    const strokeMod = 150;
     const transX = 3000;
     const transY = 300;
     const transZBase = 1000;
@@ -14,7 +14,7 @@ const rotBox = function (p: p5) {
 
     p.setup = () => {
         p.createCanvas(p.displayWidth, p.displayHeight, p.WEBGL);
-        p.strokeWeight(strokeWeight * 2);
+        p.strokeWeight(strokeMod * 2);
         C = 0;
     };
     p.draw = () => {
