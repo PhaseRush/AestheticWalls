@@ -1,0 +1,23 @@
+{
+  "name": "AestheticWalls",
+  "license": "MIT",
+  "author": {
+    "name": "PhaseRush",
+    "url": "https://www.github.com/PhaseRush"
+  },
+  "version": "0.9.0",
+  "dependencies": {
+    "p5": "^0.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.7",
+    "@types/p5": "^0.9.0",
+    "fuse-box": "^3.7.1",
+    "typescript": "^3.7.2",
+    "uglify-js": "^3.6.8"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "sketch": "node fuse.js"
+  }
+}
