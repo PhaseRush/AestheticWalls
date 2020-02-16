@@ -1,4 +1,4 @@
-const strokeWeight = 150;
+const weightModifier = 150;
 const transX = 3000;
 const transY = 300;
 const transZBase = 1000;
@@ -10,7 +10,7 @@ let modifier = 1.0;
 
 setup = _ => {
     createCanvas(displayWidth, displayHeight, WEBGL);
-    strokeWeight(strokeWeight*2);
+    strokeWeight(weightModifier*2);
     C = 0;
 };
 draw = _ => {
