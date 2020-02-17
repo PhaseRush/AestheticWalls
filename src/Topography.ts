@@ -21,7 +21,6 @@ const topography = function (p: P5) {
     p.setup = () => {
         _ = p;
         p.createCanvas(p.displayWidth, p.displayHeight);
-        // createCanvas(displayWidth, displayHeight);
         init(p);
     };
 
