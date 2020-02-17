@@ -42,7 +42,10 @@ class RingBuffer<T> {
     }
 
     public push(value: T): T {
-        const evicted = this.buffer[this.pos];
+        let evicted: T = null;
+        if (this.size === this.getLength()) {
+            evicted = this.buffer[this.pos];
+        }
         this.buffer[this.pos] = value;
         this.pos = (this.pos + 1) % this.size;
         return evicted;
