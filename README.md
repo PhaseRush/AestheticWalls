@@ -3,5 +3,10 @@ Dynamic and aesthetic wallpapers written for Wallpaper Engine
 
 Install guide coming soon :tm:
 
-The original gif which started it all...
-![](demogifs/rotbox.gif)
+Here are two example gifs
+
+RotBox
+![](demogifs/RotBox.gif)
+
+Topography
+![](demogifs/Topography.gif)

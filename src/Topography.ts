@@ -50,6 +50,8 @@ const topography = function (p: P5) {
     }
 
     p.draw = () => {
+        _.background(0, 0, 0, 25);
+
         if (isSlowStart) {
             const currSize = la.length;
             if (currSize < maxPoints && _.frameCount % populationRate == 0) {
