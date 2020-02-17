@@ -50,7 +50,7 @@ const topography = function (p: P5) {
     }
 
     p.draw = () => {
-        _.background(0, 0, 0, 25);
+        _.background(0, 0, 0, 100);
 
         if (isSlowStart) {
             const currSize = la.length;
