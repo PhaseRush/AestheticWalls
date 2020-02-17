@@ -2,8 +2,8 @@ module.exports = {
     entry: './src/Topography.ts',
 
     output: {
-        filename: "bundle.js",
-        path: __dirname + '/dist/'
+        filename: "engine.js",
+        path: __dirname + '/out/'
     },
     module: {
         rules: [
@@ -21,4 +21,4 @@ module.exports = {
     stats: {
         warnings: false
     }
-}
+};
