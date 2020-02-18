@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/Topography.ts',
+    entry: './src/Topography.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
