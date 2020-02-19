@@ -41,6 +41,7 @@ export class FreePoint {
     }
 
     public update(): void {
+        _.fill(this.colourString);
         this.move();
         this.render();
     }

@@ -49,19 +49,16 @@ new P5((p: P5) => {
         if (isSlowStart) {
             const currSize = pointsA.length;
             if (currSize < maxPoints && _.frameCount % populationRate == 0) {
-                const radius = _.map(pointsA.length, 0, maxPoints, 1, 2);
-                const alpha = _.map(pointsA.length, 0, maxPoints, 0, 200);
+                const radius = _.map(currSize, 0, maxPoints, 1, 2);
+                const alpha = _.map(currSize, 0, maxPoints, 0, 200);
                 pointsA.push(FreePoint.create(Colour.A, alpha, radius));
                 pointsB.push(FreePoint.create(Colour.B, alpha, radius));
                 pointsC.push(FreePoint.create(Colour.C, alpha, radius));
             }
         }
 
-        _.fill(pointsA[0].colourString);
         pointsA.forEach(point => point.update());
-        _.fill(pointsB[0].colourString);
         pointsB.forEach(point => point.update());
-        _.fill(pointsC[0].colourString);
         pointsC.forEach(point => point.update());
     };
 
