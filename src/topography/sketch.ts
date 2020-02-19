@@ -7,9 +7,9 @@ const maxPoints: number = 400;
 let isSlowStart: boolean = true;
 const populationRate: number = 1; // the higher the slower. Only works with slowStart
 const blurAlpha: number = 1;
-let la: Array<FreePoint> = [];
-let lb: Array<FreePoint> = [];
-let lc: Array<FreePoint> = [];
+let pointsA: Array<FreePoint> = [];
+let pointsB: Array<FreePoint> = [];
+let pointsC: Array<FreePoint> = [];
 
 let isLooping: boolean = false;
 
@@ -38,32 +38,31 @@ new P5((p: P5) => {
         Colour.B = _.color(7, 153, 242);
         Colour.C = _.color(255, 255, 255);
 
-        la = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.A));
-        lb = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.B));
-        lc = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.C));
+        pointsA = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.A));
+        pointsB = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.B));
+        pointsC = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.C));
     }
 
     p.draw = () => {
         _.background(0, 0, 0, blurAlpha);
 
         if (isSlowStart) {
-            const currSize = la.length;
+            const currSize = pointsA.length;
             if (currSize < maxPoints && _.frameCount % populationRate == 0) {
-                const radius = _.map(la.length, 0, maxPoints, 1, 2);
-                const alpha = _.map(la.length, 0, maxPoints, 0, 200);
-                la.push(FreePoint.create(Colour.A, alpha, radius));
-                lb.push(FreePoint.create(Colour.B, alpha, radius));
-                lc.push(FreePoint.create(Colour.C, alpha, radius));
+                const radius = _.map(pointsA.length, 0, maxPoints, 1, 2);
+                const alpha = _.map(pointsA.length, 0, maxPoints, 0, 200);
+                pointsA.push(FreePoint.create(Colour.A, alpha, radius));
+                pointsB.push(FreePoint.create(Colour.B, alpha, radius));
+                pointsC.push(FreePoint.create(Colour.C, alpha, radius));
             }
         }
 
-        for (let i = 0; i < la.length; i++) {
-            // const radius: number = _.map(i, 0, maxPoints, 1, 2);
-            // const alpha: number = _.map(i, 0, maxPoints, 0, 200);
-            la[i].update();
-            lb[i].update();
-            lc[i].update();
-        }
+        _.fill(pointsA[0].colourString);
+        pointsA.forEach(point => point.update());
+        _.fill(pointsB[0].colourString);
+        pointsB.forEach(point => point.update());
+        _.fill(pointsC[0].colourString);
+        pointsC.forEach(point => point.update());
     };
 
     p.keyPressed = () => {

@@ -17,7 +17,8 @@ export class FreePoint {
     private dir: P5.Vector;
     private vel: P5.Vector;
     private speed: number = 1.0;
-    private readonly colourString: string;
+
+    private readonly _colourString: string;
     private readonly radius: number;
 
     static init(p: P5): void {
@@ -36,11 +37,10 @@ export class FreePoint {
         this.dir = new P5.Vector().set(0, 0);
         this.vel = new P5.Vector().set(0, 0);
         this.radius = radius;
-        this.colourString = colour.toString("#rrggbb") + alpha.toString(16);
+        this._colourString = colour.toString("#rrggbb") + alpha.toString(16);
     }
 
     public update(): void {
-        _.fill(this.colourString);
         this.move();
         this.render();
     }
@@ -68,5 +68,9 @@ export class FreePoint {
 
     private render(): void {
         _.ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
+    }
+
+    get colourString(): string {
+        return this._colourString;
     }
 }
