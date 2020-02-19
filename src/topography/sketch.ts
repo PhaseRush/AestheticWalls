@@ -6,13 +6,14 @@ let _: P5;
 const maxPoints: number = 400;
 let isSlowStart: boolean = true;
 const populationRate: number = 1; // the higher the slower. Only works with slowStart
+const blurAlpha: number = 1;
 let la: Array<FreePoint> = [];
 let lb: Array<FreePoint> = [];
 let lc: Array<FreePoint> = [];
 
 let isLooping: boolean = false;
 
-const colour: any = {
+const Colour: any = {
     A: P5.Color,
     B: P5.Color,
     C: P5.Color
@@ -22,8 +23,8 @@ new P5((p: P5) => {
     p.setup = () => {
         _ = p;
         p.createCanvas(p.displayWidth, p.displayHeight);
-        init(p);
         FreePoint.init(p);
+        init(p);
     };
 
     function init(_: P5): void {
@@ -33,43 +34,35 @@ new P5((p: P5) => {
         _.smooth();
 
         // init colours
-        colour.A = _.color(69, 33, 124);
-        colour.B = _.color(7, 153, 242);
-        colour.C = _.color(255, 255, 255);
+        Colour.A = _.color(69, 33, 124);
+        Colour.B = _.color(7, 153, 242);
+        Colour.C = _.color(255, 255, 255);
 
-        la = [];
-        lb = [];
-        lc = [];
-
-        if (!isSlowStart) {
-            // la = Array(maxPoints).fill(null).map(FreePoint.rand);
-            for (let i = 0; i < maxPoints; i++) {
-                la.push(FreePoint.rand());
-                lb.push(FreePoint.rand());
-                lc.push(FreePoint.rand());
-            }
-        }
+        la = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.A));
+        lb = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.B));
+        lc = isSlowStart ? [] : Array.from({length: maxPoints}, _ => FreePoint.create(Colour.C));
     }
 
     p.draw = () => {
-        _.background(0, 0, 0, 5);
+        _.background(0, 0, 0, blurAlpha);
 
         if (isSlowStart) {
             const currSize = la.length;
             if (currSize < maxPoints && _.frameCount % populationRate == 0) {
-                la.push(FreePoint.rand());
-                lb.push(FreePoint.rand());
-                lc.push(FreePoint.rand());
+                const radius = _.map(la.length, 0, maxPoints, 1, 2);
+                const alpha = _.map(la.length, 0, maxPoints, 0, 200);
+                la.push(FreePoint.create(Colour.A, alpha, radius));
+                lb.push(FreePoint.create(Colour.B, alpha, radius));
+                lc.push(FreePoint.create(Colour.C, alpha, radius));
             }
         }
 
         for (let i = 0; i < la.length; i++) {
-            const radius: number = _.map(i, 0, maxPoints, 1, 3);
-            const alpha: number = _.map(i, 0, maxPoints, 0, 200);
-
-            update(la[i], radius, colour.A, alpha);
-            update(lb[i], radius, colour.B, alpha);
-            update(lc[i], radius, colour.C, alpha);
+            // const radius: number = _.map(i, 0, maxPoints, 1, 2);
+            // const alpha: number = _.map(i, 0, maxPoints, 0, 200);
+            la[i].update();
+            lb[i].update();
+            lc[i].update();
         }
     };
 
@@ -90,10 +83,4 @@ new P5((p: P5) => {
                 break;
         }
     };
-
-    function update(point: FreePoint, radius: number, color: P5.Color, alpha: number) {
-        _.fill(color.toString("#rrggbb") + alpha.toString(16));
-        point.move();
-        point.render(radius);
-    }
 });

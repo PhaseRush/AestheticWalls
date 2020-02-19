@@ -2,6 +2,12 @@ import * as P5 from "p5";
 
 let _: P5;
 
+const Defaults = {
+    "colour": null,
+    "alpha": 200,
+    "radius": 1
+};
+
 export class FreePoint {
     private static readonly noiseScale: number = 400.0;
     private static readonly border: number = 125.0;
@@ -11,22 +17,35 @@ export class FreePoint {
     private dir: P5.Vector;
     private vel: P5.Vector;
     private speed: number = 1.0;
+    private readonly colourString: string;
+    private readonly radius: number;
 
     static init(p: P5): void {
         _ = p;
+        Defaults.colour = _.color(255, 255, 255);
     }
 
-    static rand(): FreePoint {
-        return new FreePoint(_.random(0, _.width), _.random(0, _.height));
+    static create(colour: P5.Color = Defaults.colour,
+                  alpha: number = Defaults.alpha,
+                  radius: number = Defaults.radius): FreePoint {
+        return new FreePoint(_.random(0, _.width), _.random(0, _.height), colour, alpha, radius);
     }
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, colour: P5.Color, alpha: number, radius: number) {
         this.pos = new P5.Vector().set(x, y);
         this.dir = new P5.Vector().set(0, 0);
         this.vel = new P5.Vector().set(0, 0);
+        this.radius = radius;
+        this.colourString = colour.toString("#rrggbb") + alpha.toString(16);
     }
 
-    public move(): void {
+    public update(): void {
+        _.fill(this.colourString);
+        this.move();
+        this.render();
+    }
+
+    private move(): void {
         const angle: number = _.noise(this.pos.x / FreePoint.noiseScale,
             this.pos.y / FreePoint.noiseScale) * _.TWO_PI * FreePoint.noiseScale;
 
@@ -47,7 +66,7 @@ export class FreePoint {
         }
     }
 
-    public render(radius: number): void {
-        _.ellipse(this.pos.x, this.pos.y, radius, radius);
+    private render(): void {
+        _.ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
     }
 }
