@@ -13,20 +13,20 @@ Topography
 
 
 ## Install Guide
-####"I just want it to work"
+#### "I just want it to work"
 Step 1: Navigate to [my workshop](https://steamcommunity.com/id/NegativeOneKelvin/myworkshopfiles/). \
 Step 2: Subscribe to the one you want. \
 Step 3: `"?".repeat(3)` \
 Step 4: short $TSLA
 
-####"I want to play around with the code and build it myself"
+#### "I want to play around with the code and build it myself"
 This is for those people who want to mess with the colours, timings, camera, or tinker with the code in any other way. \
 
 Prerequisites:
 1. WebPack (tested on 4.41.6)
 2. Typescript [Optional] (tested on 3.7.5)
 
-.
+Instructions:
 1. Clone this repo and enter the directory: \
 `git clone https://github.com/PhaseRush/AestheticWalls.git && cd AestheticWalls`
 2. In [WebPack's config file](./w ebpack.config.js), you can change which wallpaper you're building. \
