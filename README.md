@@ -29,7 +29,7 @@ Prerequisites:
 Instructions:
 1. Clone this repo and enter the directory: \
 `git clone https://github.com/PhaseRush/AestheticWalls.git && cd AestheticWalls`
-2. In [WebPack's config file](./w ebpack.config.js), you can change which wallpaper you're building. \
+2. In [WebPack's config file](./webpack.config.js), you can change which wallpaper you're building. \
 Now use WebPack to build all required source files into one JavaScript file, so it's nice and self contained: \
 `npx webpack` \
 You should see that the `./out/` directory now has 2 files:
