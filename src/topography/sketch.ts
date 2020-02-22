@@ -3,8 +3,8 @@ import {FreePoint} from "./FreePoint";
 
 let _: P5;
 
-const maxPoints: number = 400;
-let isSlowStart: boolean = true;
+let maxPoints: number;
+const isSlowStart: boolean = true;
 const populationRate: number = 1; // the higher the slower. Only works with slowStart
 const blurAlpha: number = 1;
 let pointsA: Array<FreePoint> = [];
@@ -32,6 +32,7 @@ new P5((p: P5) => {
         _.frameRate(300);
         _.noStroke();
         _.smooth();
+        maxPoints = _.width * _.height / 12384; // 1 point per 12384 pixels, aka 400 points per 3440 x 1440
 
         // init colours
         Colour.A = _.color(69, 33, 124);
@@ -62,6 +63,7 @@ new P5((p: P5) => {
         pointsC.forEach(point => point.update());
     };
 
+    // Key actions currently undetectable by P5 through Wallpaper Engine :(
     p.keyPressed = () => {
         switch (_.keyCode) {
             case 'r'.toUpperCase().charCodeAt(0):
