@@ -5,6 +5,7 @@ let _: P5;
 
 let maxPoints: number;
 const isSlowStart: boolean = true;
+const allowOffScreen: boolean = true; // allows for prettier edges at the edge of screens
 const populationRate: number = 1; // the higher the slower. Only works with slowStart
 const blurAlpha: number = 1;
 let pointsA: Array<FreePoint> = [];

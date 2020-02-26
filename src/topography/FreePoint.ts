@@ -12,6 +12,8 @@ export class FreePoint {
     private static readonly noiseScale: number = 400.0;
     private static readonly border: number = 125.0;
     private static readonly epsilon: number = 0.01;
+    private static allowOffScreen: boolean = true;
+    private static offScreenThreshold: number = 200; // only matters for offscreen calculations
 
     private pos: P5.Vector;
     private dir: P5.Vector;
@@ -21,8 +23,9 @@ export class FreePoint {
     private readonly _colourString: string;
     private readonly radius: number;
 
-    static init(p: P5): void {
+    static init(p: P5, allowOffScreen: boolean = true): void {
         _ = p;
+        this.allowOffScreen = allowOffScreen;
         Defaults.colour = _.color(255, 255, 255);
     }
 
@@ -61,10 +64,23 @@ export class FreePoint {
     }
 
     private handleEdge(): void {
-        if (this.pos.x > _.width || this.pos.x < 0 || this.pos.y > _.height || this.pos.y < 0) {
-            this.pos.x = _.random(FreePoint.border, _.width);
-            this.pos.y = _.random(FreePoint.border, _.height);
+        if (FreePoint.allowOffScreen) {
+            if (this.pos.x > _.width + FreePoint.offScreenThreshold ||
+                this.pos.x < -FreePoint.offScreenThreshold ||
+                this.pos.y > _.height + FreePoint.offScreenThreshold ||
+                this.pos.y < -FreePoint.offScreenThreshold) {
+                this.reset();
+            }
+        } else {
+            if (this.pos.x > _.width || this.pos.x < 0 || this.pos.y > _.height || this.pos.y < 0) {
+                this.reset();
+            }
         }
+    }
+
+    private reset(): void {
+        this.pos.x = _.random(FreePoint.border, _.width);
+        this.pos.y = _.random(FreePoint.border, _.height);
     }
 
     private render(): void {
