@@ -6,7 +6,7 @@ let _: P5;
 let vertices: Vertex[];
 let maxVertices: number = 100;
 let distanceThreshold: number = 200;
-const fillShape: boolean = true;
+const fillShape: boolean = true; // true for triangles, false for wireframe
 
 
 new P5((p: P5) => {
@@ -25,11 +25,10 @@ new P5((p: P5) => {
         _.smooth();
 
         maxVertices = Math.floor(_.width * _.height / 2E4);
-        console.log(maxVertices);
-        //distanceThreshold = Math.floor(_.width * _.height / 200);
-        console.log(distanceThreshold);
-        vertices = Array.from({length: maxVertices}, _ => new Vertex());
-
+        // console.log(maxVertices);
+        distanceThreshold = Math.floor(_.width * _.height / 25000);
+        // console.log(distanceThreshold);
+        vertices = Array.from({length: maxVertices}, _ => Vertex.createRandom());
     }
 
     p.draw = () => {
@@ -60,7 +59,7 @@ new P5((p: P5) => {
                             } else {
                                 _.noFill();
                                 _.strokeWeight(1);
-                                _.stroke(0, 20);
+                                _.stroke(200, 20);
                             }
                             // shape
                             _.beginShape(0x0004); // 4 ==="TRIANGLES" hardcoded because global const doesnt work
