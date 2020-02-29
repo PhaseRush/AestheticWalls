@@ -4,16 +4,16 @@ import {Vertex} from "./Vertex";
 let _: P5;
 
 let vertices: Vertex[];
-const maxVertices: number = 100;
-const distanceThreshold: number = 50;
-const fillShape: boolean = false;
+let maxVertices: number = 100;
+let distanceThreshold: number = 200;
+const fillShape: boolean = true;
 
 
 new P5((p: P5) => {
     p.setup = () => {
         _ = p;
-        //_.createCanvas(_.displayWidth, _.displayHeight);
-        _.createCanvas(1000, 300);
+        _.createCanvas(_.displayWidth, _.displayHeight);
+        // _.createCanvas(1000, 300);
         Vertex.init(_);
         init();
     };
@@ -24,45 +24,49 @@ new P5((p: P5) => {
         _.noStroke();
         _.smooth();
 
-        vertices = Array.from({length: maxVertices}, _ => Vertex.create());
+        maxVertices = Math.floor(_.width * _.height / 2E4);
+        console.log(maxVertices);
+        //distanceThreshold = Math.floor(_.width * _.height / 200);
+        console.log(distanceThreshold);
+        vertices = Array.from({length: maxVertices}, _ => new Vertex());
 
     }
 
     p.draw = () => {
+        if (_.frameCount % 50 === 0) console.log("frameRate:\t" + _.frameRate());
+
         _.background(0);
         for (let i = 0; i < maxVertices; i++) {
             const v1: Vertex = vertices[i];
             v1.update();
             v1.render();
 
-            // if (i === 0) {
-            //     console.log("len\t" + v1.vel.mag());
-            // }
-
             for (let j = i + 1; j < maxVertices; j++) {
                 const v2: Vertex = vertices[j];
                 v2.update();
-                const dist12: number = _.dist(v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y);
+                const dist12: number = _.dist(v1.x, v1.y, v2.x, v2.y);
 
                 // v1 and v2 eligible
                 if (dist12 < distanceThreshold) {
                     for (let k = j + 1; k < maxVertices; k++) {
                         const v3: Vertex = vertices[k];
-                        const dist23: number = _.dist(v2.pos.x, v2.pos.y, v3.pos.x, v3.pos.y);
+                        const dist23: number = _.dist(v2.x, v2.y, v3.x, v3.y);
+
+                        // v3 eligible
                         if (dist23 < distanceThreshold) {
                             if (fillShape) {
                                 _.stroke(255, 10);
-                                _.fill(v3.colour); // todo add alpha maybe
+                                _.fill(v3.cAlpha);
                             } else {
                                 _.noFill();
                                 _.strokeWeight(1);
                                 _.stroke(0, 20);
                             }
                             // shape
-                            _.beginShape(0x0004); // hardcode because global const doesnt work
-                            _.vertex(v1.pos.x, v1.pos.y);
-                            _.vertex(v2.pos.x, v2.pos.y);
-                            _.vertex(v3.pos.x, v3.pos.y);
+                            _.beginShape(0x0004); // 4 ==="TRIANGLES" hardcoded because global const doesnt work
+                            _.vertex(v1.x, v1.y);
+                            _.vertex(v2.x, v2.y);
+                            _.vertex(v3.x, v3.y);
                             _.endShape();
                         }
                         v3.update();
