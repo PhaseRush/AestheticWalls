@@ -13,7 +13,8 @@ export class FreePoint {
     private static readonly border: number = 125.0;
     private static readonly epsilon: number = 0.01;
     private static allowOffScreen: boolean = true;
-    private static offScreenThreshold: number = 200; // only matters for offscreen calculations
+    // only matters for offscreen calculations when `allowOffscreen` is false
+    private static offScreenThreshold: number = 200;
 
     private pos: P5.Vector;
     private dir: P5.Vector;
@@ -64,15 +65,11 @@ export class FreePoint {
     }
 
     private handleEdge(): void {
-        if (FreePoint.allowOffScreen) {
+        if (!FreePoint.allowOffScreen) {
             if (this.pos.x > _.width + FreePoint.offScreenThreshold ||
                 this.pos.x < -FreePoint.offScreenThreshold ||
                 this.pos.y > _.height + FreePoint.offScreenThreshold ||
                 this.pos.y < -FreePoint.offScreenThreshold) {
-                this.reset();
-            }
-        } else {
-            if (this.pos.x > _.width || this.pos.x < 0 || this.pos.y > _.height || this.pos.y < 0) {
                 this.reset();
             }
         }
