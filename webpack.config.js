@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/topography/sketch.ts', // Point this to the file you want to build!
+    entry: './src/vertexplane/sketch.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
