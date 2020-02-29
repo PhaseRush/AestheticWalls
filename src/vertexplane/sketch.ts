@@ -31,6 +31,23 @@ new P5((p: P5) => {
         vertices = Array.from({length: maxVertices}, _ => Vertex.createRandom());
     }
 
+    function render(v1: Vertex, v2: Vertex, v3: Vertex) {
+        if (fillShape) {
+            _.stroke(255, 10);
+            _.fill(v3.cAlpha);
+        } else {
+            _.noFill();
+            _.strokeWeight(1);
+            _.stroke(200, 20);
+        }
+        // shape
+        _.beginShape(0x0004); // 4 ==="TRIANGLES" hardcoded because global const doesnt work
+        _.vertex(v1.x, v1.y);
+        _.vertex(v2.x, v2.y);
+        _.vertex(v3.x, v3.y);
+        _.endShape();
+    }
+
     p.draw = () => {
         if (_.frameCount % 50 === 0) console.log("frameRate:\t" + _.frameRate());
 
@@ -53,20 +70,7 @@ new P5((p: P5) => {
 
                         // v3 eligible
                         if (dist23 < distanceThreshold) {
-                            if (fillShape) {
-                                _.stroke(255, 10);
-                                _.fill(v3.cAlpha);
-                            } else {
-                                _.noFill();
-                                _.strokeWeight(1);
-                                _.stroke(200, 20);
-                            }
-                            // shape
-                            _.beginShape(0x0004); // 4 ==="TRIANGLES" hardcoded because global const doesnt work
-                            _.vertex(v1.x, v1.y);
-                            _.vertex(v2.x, v2.y);
-                            _.vertex(v3.x, v3.y);
-                            _.endShape();
+                            render(v1, v2, v3);
                         }
                         v3.update();
                     }
