@@ -1,13 +1,13 @@
 import * as P5 from "p5";
-import {randFromEnum} from "./../Util/Util";
+import {randFromEnum} from "../Util/Util";
 
 let _: P5;
 
 enum Colors {
-    TURQUOISE = "#05CDE5",
-    GOLD = "#FFB803",
-    MAGENTA = "#FF035B",
-    GREY = "#3D3E3E"
+    TURQUOISE = "#05CDE4",
+    GOLD = "#FFB804",
+    MAGENTA = "#FF0354",
+    GREY = "#3D3E34"
 }
 
 export class Vertex {
@@ -28,20 +28,24 @@ export class Vertex {
         _ = p;
     }
 
-    constructor() {
-        this._x = _.random(0, _.width);
-        this._y = _.random(0, _.height);
-        this._r = _.random(3, 7);
-        this._c = randFromEnum(Colors);
-        this._cAlpha = this.c.toString("#rrggbb") + Vertex.alpha.toString(16);
+    public static createRandom(): Vertex {
+        let c: P5.Color = randFromEnum(Colors);
+
+        return new Vertex(
+            _.random(0, _.width),
+            _.random(0, _.height),
+            _.random(3, 7),
+            c,
+            c.toString("#rrggbb") + Vertex.alpha.toString(16)
+        );
     }
 
-    public render() {
-        _.push();
-        _.noStroke();
-        _.fill(this._c);
-        _.ellipse(this._x, this._y, this._r, this._r);
-        _.pop();
+    constructor(x: number, y: number, r: number, c: P5.Color, cAlpha: string) {
+        this._x = x;
+        this._y = y;
+        this._r = r;
+        this._c = c;
+        this._cAlpha = cAlpha;
     }
 
     public update() {
@@ -60,6 +64,14 @@ export class Vertex {
         if (this._y < 0 + this._r) this.accY = 1;
         if (this._x > _.width - this._r) this.accX = -1;
         if (this._x < 0 + this._r) this.accX = 1;
+    }
+
+    public render() {
+        _.push();
+        _.noStroke();
+        _.fill(this._c);
+        _.ellipse(this._x, this._y, this._r, this._r);
+        _.pop();
     }
 
     get x() {
