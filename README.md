@@ -38,4 +38,4 @@ You should see that the `./out/` directory now has 2 files:
 
 3. Now you can open up `index.html` in a browser to see how it looks!
 
-4. At this point, you can follow [this tutorial](https://www.youtube.com/watch?v=f0uP-e-1YJ4) with our two files.
+4. If you want to run it in Wallpaper Engine, you can follow [this tutorial](https://www.youtube.com/watch?v=f0uP-e-1YJ4) with our two files.
