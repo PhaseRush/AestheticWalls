@@ -11,6 +11,11 @@ RotBox
 Topography
 ![Resembles a topographical map as time -> inf](demogifs/Topography.gif)
 
+VertexPlane
+![This took too long to optimize...](demogifs/VertexPlaneTriangle.gif)
+
+![This took too long to optimize...](demogifs/VertexPlaneWire.gif)
+
 
 ## Install Guide
 #### "I just want it to work in Wallpaper Engine"
