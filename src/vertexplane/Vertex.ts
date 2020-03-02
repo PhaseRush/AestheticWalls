@@ -12,7 +12,7 @@ enum Colors {
 
 export class Vertex {
     private static readonly alpha = 90;
-    private static readonly timeStep = 0.01;
+    private static readonly timeStep = 0.5;
 
     private _x;
     private _y;
@@ -73,6 +73,10 @@ export class Vertex {
         _.ellipse(this._x, this._y, this._r, this._r);
         _.pop();
     }
+
+    public toString = () : string => {
+        return "Vertex: x: " + this.x + "\ty: " + this.y;
+    };
 
     get x() {
         return this._x;
