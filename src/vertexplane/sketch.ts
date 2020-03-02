@@ -1,11 +1,16 @@
 import * as P5 from 'p5'
 import {Vertex} from "./Vertex";
+import createKDTree = require('../Util/kdtree');
 
 let _: P5;
 
 let vertices: Vertex[];
+let coordinates: number[][] = [[], []]; // [x,y] for each vertex
+let kdTree;
+const kValue: number = 3; // 2 closest + self = 3
+
 let maxVertices: number = 100;
-let distanceThreshold: number = 200;
+let distanceThreshold: number = 20000;
 const fillShape: boolean = true; // true for triangles, false for wireframe
 
 
@@ -20,15 +25,16 @@ new P5((p: P5) => {
 
     function init(): void {
         _.background(0);
-        _.frameRate(60);
+        _.frameRate(300);
         _.noStroke();
         _.smooth();
 
-        maxVertices = Math.floor(_.width * _.height / 2E4);
+        //maxVertices = Math.floor(_.width * _.height / 2E4);
         // console.log(maxVertices);
-        distanceThreshold = Math.floor(_.width * _.height / 25000);
+        //distanceThreshold = Math.floor(_.width * _.height / 25000);
         // console.log(distanceThreshold);
         vertices = Array.from({length: maxVertices}, _ => Vertex.createRandom());
+        updateKdTree();
     }
 
     function render(v1: Vertex, v2: Vertex, v3: Vertex) {
@@ -50,32 +56,35 @@ new P5((p: P5) => {
 
     p.draw = () => {
         if (_.frameCount % 50 === 0) console.log("frameRate:\t" + _.frameRate());
-
+        updateKdTree();
         _.background(0);
+
+
         for (let i = 0; i < maxVertices; i++) {
             const v1: Vertex = vertices[i];
             v1.update();
             v1.render();
 
-            for (let j = i + 1; j < maxVertices; j++) {
-                const v2: Vertex = vertices[j];
-                v2.update();
-                const dist12: number = _.dist(v1.x, v1.y, v2.x, v2.y);
-
-                // v1 and v2 eligible
-                if (dist12 < distanceThreshold) {
-                    for (let k = j + 1; k < maxVertices; k++) {
-                        const v3: Vertex = vertices[k];
-                        const dist23: number = _.dist(v2.x, v2.y, v3.x, v3.y);
-
-                        // v3 eligible
-                        if (dist23 < distanceThreshold) {
-                            render(v1, v2, v3);
-                        }
-                        v3.update();
-                    }
-                }
+            // console.log("v1: " + v1.toString());
+            const kIndices: number[] = kdTree.knn([v1.x, v1.y], kValue, distanceThreshold);
+            //const v2: Vertex = vertices[kIndices[0]];
+            //const v3: Vertex = vertices[kIndices[1]];
+            // console.log("ret k length: " + kIndices.length);
+            if (kIndices.length === kValue) { // ignore self
+                const v_1: Vertex = vertices[kIndices[0]]; // repeat self?
+                const v2: Vertex = vertices[kIndices[1]];
+                const v3: Vertex = vertices[kIndices[2]];
+                //console.log("tv2: " + v2.toString() + "\tv3: " + v3.toString());
+                render(v_1, v2, v3);
             }
         }
     };
+
+    // use index for loop over map due to performance
+    function updateKdTree() {
+        for (let i = 0; i < maxVertices; i++) {
+            coordinates[i] = [vertices[i].x, vertices[i].y];
+        }
+        kdTree = createKDTree(coordinates);
+    }
 });
