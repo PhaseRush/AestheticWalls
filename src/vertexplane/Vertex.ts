@@ -53,8 +53,8 @@ export class Vertex {
     }
 
     private move() {
-        this._x = this._x + this.accX * Vertex.timeStep;
-        this._y = this._y + this.accY * Vertex.timeStep;
+        this._x = this._x + this.accX * Vertex.timeStep * (1 + Math.random() / 10.0);
+        this._y = this._y + this.accY * Vertex.timeStep * (1 + Math.random() / 10.0);
 
         this.checkBounds();
     }
@@ -74,7 +74,7 @@ export class Vertex {
         _.pop();
     }
 
-    public toString = () : string => {
+    public toString = (): string => {
         return "Vertex: x: " + this.x + "\ty: " + this.y;
     };
 

@@ -9,8 +9,10 @@ let coordinates: number[][] = [[], []]; // [x,y] for each vertex
 let kdTree;
 const kValue: number = 3; // 2 closest + self = 3
 
-let maxVertices: number = 100;
-let distanceThreshold: number = 20000;
+let maxVertices: number;
+let distanceThreshold: number;
+const density = 0.004; // decrease this number to make it more dense;
+
 const fillShape: boolean = true; // true for triangles, false for wireframe
 
 
@@ -29,10 +31,10 @@ new P5((p: P5) => {
         _.noStroke();
         _.smooth();
 
-        //maxVertices = Math.floor(_.width * _.height / 2E4);
-        // console.log(maxVertices);
-        //distanceThreshold = Math.floor(_.width * _.height / 25000);
-        // console.log(distanceThreshold);
+        maxVertices = Math.floor(_.width * _.height / (100 / density));
+        console.log(maxVertices);
+        distanceThreshold = Math.floor(_.width * _.height / (1/density));
+        console.log(distanceThreshold);
         vertices = Array.from({length: maxVertices}, _ => Vertex.createRandom());
         updateKdTree();
     }
