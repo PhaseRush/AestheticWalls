@@ -7,12 +7,12 @@ enum Colors {
     TURQUOISE = "#05CDE4",
     GOLD = "#FFB804",
     MAGENTA = "#FF0354",
-    GREY = "#3D3E34"
+    GREY = "#31343e"
 }
 
 export class Vertex {
     private static readonly alpha = 90;
-    private static readonly timeStep = 0.5;
+    private static readonly timeStep = 1.0;
 
     private _x;
     private _y;
