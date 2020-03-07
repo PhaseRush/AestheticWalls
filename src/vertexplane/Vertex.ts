@@ -12,7 +12,7 @@ enum Colors {
 
 export class Vertex {
     private static readonly alpha = 90;
-    private static readonly timeStep = 1.0;
+    private static readonly timeStep = 0.3;
 
     private _x;
     private _y;

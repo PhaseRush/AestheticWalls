@@ -12,7 +12,6 @@ const kValue: number = 3; // 2 closest + self = 3
 let maxVertices: number;
 let distanceThreshold: number;
 
-let maxAlphaDistance: number;
 const density = 0.004; // decrease this number to make it more dense;
 
 const fillShape: boolean = true; // true for triangles, false for wireframe
@@ -37,7 +36,6 @@ new P5((p: P5) => {
         console.log(maxVertices);
         distanceThreshold = Math.floor(_.width * _.height / (1 / density)) * 2;
         console.log(distanceThreshold);
-        maxAlphaDistance = (1.0/2.0) * (distanceThreshold/ 100.0);
         vertices = Array.from({length: maxVertices}, _ => Vertex.createRandom());
         updateKdTree();
     }
@@ -59,17 +57,13 @@ new P5((p: P5) => {
             _.min(dist12, dist23) / _.max(dist12, dist23));
         const colorPost: P5.Color = _.lerpColor(colorPre, colour13,
             _.min(dist12 + dist23, dist13) / _.max(dist12 + dist23, dist13));
-        // const area = _.sqrt(
-        //     (dist12 + dist23 + dist13) *
-        //     (((-1) * dist12) + dist23 + dist13) *
-        //     (dist12 + ((-1) * dist23) + dist13) *
-        //     (dist13 + dist23 + ((-1) * dist13))) / 4;
+        const area = _.sqrt(
+            (dist12 + dist23 + dist13) *
+            (((-1) * dist12) + dist23 + dist13) *
+            (dist12 + ((-1) * dist23) + dist13) *
+            (dist13 + dist23 + ((-1) * dist13))) / 4;
 
-        const longest = _.max([dist12, dist23, dist13]);
-        const diff = _.abs(longest - maxAlphaDistance);
-        const scaleDiff = _.map(diff, 0, maxAlphaDistance, 0, 254);
-        colorPost.setAlpha(scaleDiff);
-        //console.log("longest: " + longest + "diff: " + diff + "scaleDiff: " + scaleDiff);
+        colorPost.setAlpha(area / 100.0);
         return colorPost;
     }
 
