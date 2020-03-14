@@ -29,7 +29,7 @@ This is for those people who want to mess with the colours, timings, camera, or 
 
 Prerequisites:
 1. WebPack (tested on 4.41.6)
-2. Typescript [Optional] (tested on 3.7.5)
+2. Typescript (tested on 3.7.5)
 
 Instructions:
 1. Clone this repo and enter the directory: \
