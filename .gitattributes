@@ -1,0 +1,3 @@
+out/* linguist-generated
+src/Util/heap.js -linguist-detectable
+src/Util/kdtree.js -linguist-detectable
