@@ -25,7 +25,7 @@ Step 3: `"?".repeat(3)` \
 Step 4: short `$TSLA`
 
 #### "I want to play around with the code and build it myself"
-This is for those people who want to mess with the colours, timings, camera, or tinker with the code in any other way. \
+This is for those people who want to mess with the colours, timings, camera, or tinker with the code in any other way.
 
 Prerequisites:
 1. WebPack (tested on 4.41.6)
