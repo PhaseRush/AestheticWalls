@@ -16,6 +16,9 @@ VertexPlane
 
 ![This took too long to optimize...](demogifs/VertexPlaneWire.gif)
 
+DoublePendulum
+![Thanks gonk for tagging along](demogifs/DoublePendulum.gif)
+
 
 ## Install Guide
 #### "I just want it to work in Wallpaper Engine"
