@@ -9,6 +9,8 @@ let nodeColor;
 const histLength = 255;
 let history;
 
+const frameEpsilon = 2;
+
 // trail history color
 let historyColour: P5.Color;
 
@@ -42,7 +44,7 @@ new P5((p: P5) => {
     }
 
     p.draw = () => {
-        if (_.frameCount % (_.frameRate() * 60) === 0) { // every minute
+        if (_.frameCount % (_.frameRate() * 60) < frameEpsilon) { // every minute
             init();
         }
         _.background(0);
