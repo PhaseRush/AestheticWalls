@@ -30,8 +30,8 @@ new P5((p: P5) => {
         r2 = _.height / 5;
         m1 = 20;
         m2 = 10;
-        a1 = _.PI / 2; // vary these randomly
-        a2 = _.PI / 2;
+        a1 = _.PI / _.randomGaussian(2, 0.4) * _.random([1, -1]);
+        a2 = _.PI / _.randomGaussian(2, 0.4) * _.random([1, -1]);
         a_v1 = 0;
         a_v2 = 0;
         cx = _.width / 2;
@@ -42,6 +42,9 @@ new P5((p: P5) => {
     }
 
     p.draw = () => {
+        if (_.frameCount % (_.frameRate() * 60) === 0) { // every minute
+            init();
+        }
         _.background(0);
         // a1 acceleration
         const numer1 = -g * (2 * m1 + m2) * _.sin(a1);
