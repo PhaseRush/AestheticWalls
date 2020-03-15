@@ -44,7 +44,7 @@ new P5((p: P5) => {
     }
 
     p.draw = () => {
-        if (_.frameCount % (_.frameRate() * 60) < frameEpsilon) { // every minute
+        if (_.frameCount % (_.frameRate() * 120) < frameEpsilon) { // every 2 minutes
             init();
         }
         _.background(0);
