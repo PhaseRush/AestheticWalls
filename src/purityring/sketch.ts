@@ -88,10 +88,10 @@ new P5((p: P5) => {
         return _.exp(start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1)))
     }
 
-    type distortionFunction = (x: number, y: number) => number;
+    type distortionFunctionType = (x: number, y: number) => number;
 
     // allow for simulated mouse positions
-    function drawPoly(dx: number, dy: number, distortionFunction: distortionFunction = (x: number, y: number) => {
+    function drawPoly(dx: number, dy: number, distortionFunction: distortionFunctionType = (x: number, y: number) => {
         return _.dist(_.mouseX, _.mouseY, x, y);
     }) {
         _.beginShape();
