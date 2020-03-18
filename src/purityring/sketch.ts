@@ -30,7 +30,8 @@ new P5((p: P5) => {
         const historyColour = _.color(0xe0, 0x22, 0xba); // #e022ba
 
         pendulum = new DoublePendulum(
-            _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, 255, true
+            _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, 255,
+            true, false, false
         );
     }
 

@@ -20,13 +20,16 @@ export class DoublePendulum {
     private histLength: number = 255;
     private readonly _history: RingBuffer<number[]>;
     private readonly drawHistory: boolean;
+    private readonly drawArms: boolean;
+    private readonly drawNodes: boolean;
 
     private _: P5;
 
     private tip: SimplePoint2D;
 
     constructor(p: P5, g: number, r1: number, r2: number, m1: number, m2: number, a1: number, a2: number, a_v1: number, a_v2: number,
-                cx: number, cy: number, nodeColor: P5.Color, historyColor: P5.Color, histLength: number, drawHistory: boolean) {
+                cx: number, cy: number, nodeColor: P5.Color, historyColor: P5.Color, histLength: number,
+                drawHistory: boolean, drawArms: boolean, drawNodes: boolean) {
         this._ = p;
         this.g = g;
         this.r1 = r1;
@@ -43,6 +46,8 @@ export class DoublePendulum {
         this.historyColor = historyColor;
         this.histLength = histLength;
         this.drawHistory = drawHistory;
+        this.drawArms = drawArms;
+        this.drawNodes = drawNodes;
         if (drawHistory) {
             this._history = RingBuffer.fromArray([[10], [10]], histLength);
         }
@@ -74,15 +79,19 @@ export class DoublePendulum {
         const x2 = x1 + this.r2 * this._.sin(this.a2);
         const y2 = y1 + this.r2 * this._.cos(this.a2);
 
-        this._.fill(this.nodeColor);
-        this._.ellipse(x1, y1, this.m1, this.m1);
-        this._.fill(this.nodeColor);
-        this._.ellipse(x2, y2, this.m2, this.m2);
+        if (this.drawNodes) {
+            this._.fill(this.nodeColor);
+            this._.ellipse(x1, y1, this.m1, this.m1);
+            this._.fill(this.nodeColor);
+            this._.ellipse(x2, y2, this.m2, this.m2);
+        }
 
-        this._.fill(255);
-        this._.line(0, 0, x1, y1);
-        this._.fill(255);
-        this._.line(x1, y1, x2, y2);
+        if (this.drawArms) {
+            this._.fill(255);
+            this._.line(0, 0, x1, y1);
+            this._.fill(255);
+            this._.line(x1, y1, x2, y2);
+        }
 
         this.a_v1 += a1_a;
         this.a_v2 += a2_a;

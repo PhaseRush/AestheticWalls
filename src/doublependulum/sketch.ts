@@ -1,5 +1,5 @@
 import * as P5 from 'p5'
-import {DoublePendulum, } from "./DoublePendulum";
+import {DoublePendulum,} from "./DoublePendulum";
 import {frameEpsilon} from "../Util/Util";
 
 let _: P5, r1: number, r2: number, m1: number, m2: number, a1: number, a2: number, a_v1: number, a_v2: number,
@@ -39,7 +39,8 @@ new P5((p: P5) => {
         historyColour = _.color(0xe0, 0x22, 0xba); // #e022ba
 
         pendulum = new DoublePendulum(
-            _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, histLength, true
+            _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, histLength,
+            true, true, true
         );
     }
 
