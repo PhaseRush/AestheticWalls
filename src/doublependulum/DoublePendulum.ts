@@ -18,7 +18,7 @@ export class DoublePendulum {
     private readonly nodeColor: P5.Color;
     private readonly historyColor: P5.Color;
     private histLength: number = 255;
-    private readonly _history: RingBuffer<number[]>;
+    private readonly _history: RingBuffer<SimplePoint2D>;
     private readonly drawHistory: boolean;
     private readonly drawArms: boolean;
     private readonly drawNodes: boolean;
@@ -49,7 +49,7 @@ export class DoublePendulum {
         this.drawArms = drawArms;
         this.drawNodes = drawNodes;
         if (drawHistory) {
-            this._history = RingBuffer.fromArray([[10], [10]], histLength);
+            this._history = new RingBuffer<SimplePoint2D>(histLength);
         }
     }
 
@@ -100,7 +100,7 @@ export class DoublePendulum {
 
         if (this.drawHistory) {
             this.renderHistory(a2_a);
-            this._history.push([x2, y2]);
+            this._history.push({x: x2, y: y2});
         }
         this.tip = {x: x2, y: y2};
         this._.translate(-this.cx, -this.cy);
@@ -114,11 +114,11 @@ export class DoublePendulum {
             this._.fill(this.historyColor);
             this._.strokeWeight(0);
             const radiusMultiplier: number = this._.max(this._.sqrt(this._.abs(a2_a)), 1); // scale size based on a_a
-            this._.ellipse(vec[0], vec[1], this.m2 / radiusMultiplier, this.m2 / radiusMultiplier);
+            this._.ellipse(vec.x, vec.y, this.m2 / radiusMultiplier, this.m2 / radiusMultiplier);
         }
     }
 
-    get history(): RingBuffer<number[]> {
+    get history(): RingBuffer<SimplePoint2D> {
         return this._history;
     }
 

@@ -27,7 +27,7 @@ new P5((p: P5) => {
         const cx = _.width / 2;
         const cy = _.height / 4;
         const nodeColor = _.color("0xFFFFFF");
-        const historyColour = _.color("0xFFFFFF"); // #e022ba
+        const historyColour = _.color("0xFFFFFF");
 
         pendulum = new DoublePendulum(
             _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, 255,
@@ -68,11 +68,12 @@ new P5((p: P5) => {
 
         pendulum.update();
 
+        const pendulumTip: SimplePoint2D = pendulum.getTip();
+
         function pendulumDistance(x: number, y: number): number {
             return _.dist(pendulumTip.x, pendulumTip.y, x, y) / 4;
         }
 
-        const pendulumTip: SimplePoint2D = pendulum.getTip();
 
         // use additive blend mode to separate color channels
         restoreRingSettings();
