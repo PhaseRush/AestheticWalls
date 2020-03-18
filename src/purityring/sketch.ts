@@ -1,10 +1,11 @@
 import * as P5 from 'p5'
 import {DoublePendulum} from "../doublependulum/DoublePendulum";
+import {frameEpsilon, SimplePoint2D} from "../Util/Util";
 
 let _: P5;
 
-let poly = [];
-let numSides = 10;
+let poly: SimplePoint2D[] = [];
+let numSides = 100;
 let pendulum: DoublePendulum;
 
 new P5((p: P5) => {
@@ -15,7 +16,7 @@ new P5((p: P5) => {
     };
 
     function initPendulum() {
-        const r1 = _.height / 5;
+        const r1 = _.height / 6;
         const r2 = _.height / 3;
         const m1 = 20;
         const m2 = 10;
@@ -60,13 +61,17 @@ new P5((p: P5) => {
         _.blendMode(_.BLEND);
         _.background(0);
 
+        if (_.frameCount % (_.frameRate() * 180) < frameEpsilon) { // every 3 minutes
+            initPendulum();
+        }
+
         pendulum.update();
 
         function pendulumDistance(x: number, y: number): number {
             return _.dist(pendulumTip.x, pendulumTip.y, x, y) / 4;
         }
 
-        const pendulumTip: { x: number, y: number } = pendulum.getTip();
+        const pendulumTip: SimplePoint2D = pendulum.getTip();
 
         // use additive blend mode to separate color channels
         restoreRingSettings();
@@ -95,11 +100,11 @@ new P5((p: P5) => {
         return _.dist(_.mouseX, _.mouseY, x, y);
     }) {
         _.beginShape();
-        for (let i = 0; i < numSides; i++) {
-            let distortion = distortionFunction(poly[i].x, poly[i].y);
-            _.vertex(poly[i].x + dx / logMap(distortion, _.width, 0, dx, 45),
-                poly[i].y + dy / logMap(distortion, _.height, 0, dy, 45))
-        }
+        poly.forEach(gon => {
+            let distortion = distortionFunction(gon.x, gon.y);
+            _.vertex(gon.x + dx / logMap(distortion, _.width, 0, dx, 45),
+                gon.y + dy / logMap(distortion, _.height, 0, dy, 45))
+        });
         _.endShape();
     }
 

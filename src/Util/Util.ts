@@ -8,3 +8,11 @@ export function rand<T>(e: T[]): T {
         return e[Math.floor((Math.random() * e.length))];
     } else return undefined;
 }
+
+export interface SimplePoint2D {
+    x: number,
+    y: number
+}
+
+// for frame skip avoidance
+export const frameEpsilon = 2;

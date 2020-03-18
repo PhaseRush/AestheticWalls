@@ -1,15 +1,12 @@
 import * as P5 from 'p5'
-import {RingBuffer} from "../Util/RingBuffer";
-import {DoublePendulum} from "./DoublePendulum";
+import {DoublePendulum, } from "./DoublePendulum";
+import {frameEpsilon} from "../Util/Util";
 
 let _: P5, r1: number, r2: number, m1: number, m2: number, a1: number, a2: number, a_v1: number, a_v2: number,
     cx: number, cy: number;
 
 let nodeColor;
 const histLength = 255;
-
-const frameEpsilon = 2;
-
 // trail history color
 let historyColour: P5.Color;
 

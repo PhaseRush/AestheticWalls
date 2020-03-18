@@ -1,5 +1,6 @@
 import * as P5 from 'p5'
 import {RingBuffer} from "../Util/RingBuffer";
+import {SimplePoint2D} from "../Util/Util";
 
 export class DoublePendulum {
 
@@ -22,7 +23,7 @@ export class DoublePendulum {
 
     private _: P5;
 
-    private tip: { x: number, y: number };
+    private tip: SimplePoint2D;
 
     constructor(p: P5, g: number, r1: number, r2: number, m1: number, m2: number, a1: number, a2: number, a_v1: number, a_v2: number,
                 cx: number, cy: number, nodeColor: P5.Color, historyColor: P5.Color, histLength: number, drawHistory: boolean) {
@@ -112,7 +113,7 @@ export class DoublePendulum {
         return this._history;
     }
 
-    public getTip(): { x: number, y: number } {
+    public getTip(): SimplePoint2D {
         return this.tip;
     }
 }
