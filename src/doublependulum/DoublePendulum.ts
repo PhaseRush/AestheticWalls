@@ -11,8 +11,8 @@ export class DoublePendulum {
     private readonly m2: number;
     private a1: number;
     private a2: number;
-    private a_v1: number;
-    private a_v2: number;
+    private a1_v: number;
+    private a2_v: number;
     private readonly cx: number;
     private readonly cy: number;
     private readonly nodeColor: P5.Color;
@@ -38,8 +38,8 @@ export class DoublePendulum {
         this.m2 = m2;
         this.a1 = a1;
         this.a2 = a2;
-        this.a_v1 = a_v1;
-        this.a_v2 = a_v2;
+        this.a1_v = a_v1;
+        this.a2_v = a_v2;
         this.cx = cx;
         this.cy = cy;
         this.nodeColor = nodeColor;
@@ -58,15 +58,15 @@ export class DoublePendulum {
         const numer1 = -this.g * (2 * this.m1 + this.m2) * this._.sin(this.a1);
         const numer2 = -this.m2 * this.g * this._.sin(this.a1 - 2 * this.a2);
         const numer3 = -2 * this._.sin(this.a1 - this.a2) * this.m2;
-        const numer4 = (this.a_v2 * this.a_v2) * this.r2 + (this.a_v1 * this.a_v1) * this.r1 * this._.cos(this.a1 - this.a2);
+        const numer4 = (this.a2_v * this.a2_v) * this.r2 + (this.a1_v * this.a1_v) * this.r1 * this._.cos(this.a1 - this.a2);
         const denom = this.r1 * (2 * this.m1 + this.m2 - this.m2 * this._.cos(2 * this.a1 - 2 * this.a2));
         const a1_a = (numer1 + numer2 + numer3 * numer4) / denom;
 
         // a2 acceleration
         const n1 = 2 * this._.sin(this.a1 - this.a2);
-        const n2 = (this.a_v1 * this.a_v1) * this.r1 * (this.m1 + this.m2);
+        const n2 = (this.a1_v * this.a1_v) * this.r1 * (this.m1 + this.m2);
         const n3 = this.g * (this.m1 + this.m2) * this._.cos(this.a1);
-        const n4 = (this.a_v2 * this.a_v2) * this.r2 * this.m2 * this._.cos(this.a1 - this.a2);
+        const n4 = (this.a2_v * this.a2_v) * this.r2 * this.m2 * this._.cos(this.a1 - this.a2);
         const den = this.r2 * (2 * this.m1 + this.m2 - this.m2 * this._.cos(2 * this.a1 - 2 * this.a2));
         const a2_a = (n1 * (n2 + n3 + n4)) / den;
 
@@ -93,10 +93,10 @@ export class DoublePendulum {
             this._.line(x1, y1, x2, y2);
         }
 
-        this.a_v1 += a1_a;
-        this.a_v2 += a2_a;
-        this.a1 += this.a_v1;
-        this.a2 += this.a_v2;
+        this.a1_v += a1_a;
+        this.a2_v += a2_a;
+        this.a1 += this.a1_v;
+        this.a2 += this.a2_v;
 
         if (this.drawHistory) {
             this.renderHistory(a2_a);

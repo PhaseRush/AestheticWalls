@@ -4,7 +4,7 @@ import {frameEpsilon, SimplePoint2D} from "../Util/Util";
 
 let _: P5;
 
-let poly: SimplePoint2D[] = [];
+let vertices: SimplePoint2D[] = [];
 let numSides = 100;
 let pendulum: DoublePendulum;
 
@@ -99,7 +99,7 @@ new P5((p: P5) => {
         numSides++;
 
         for (let i = 0; i < numSides; i++) {
-            poly.push({
+            vertices.push({
                 x: (_.width / 2) + (_.height / 5) * _.sin(_.map(i, 0, numSides - 1, 0, _.TAU)),
                 y: (_.height / 2) + (_.height / 5) * _.cos(_.map(i, 0, numSides - 1, 0, _.TAU))
             })
@@ -155,10 +155,10 @@ new P5((p: P5) => {
         return _.dist(_.mouseX, _.mouseY, x, y);
     }) {
         _.beginShape();
-        poly.forEach(gon => {
-            let distortion = distortionFunction(gon.x, gon.y);
-            _.vertex(gon.x + dx / logMap(distortion, _.width, 0, dx, 45),
-                gon.y + dy / logMap(distortion, _.height, 0, dy, 45))
+        vertices.forEach(vertex => {
+            let distortion = distortionFunction(vertex.x, vertex.y);
+            _.vertex(vertex.x + dx / logMap(distortion, _.width, 0, dx, 45),
+                vertex.y + dy / logMap(distortion, _.height, 0, dy, 45))
         });
         _.endShape();
     }
