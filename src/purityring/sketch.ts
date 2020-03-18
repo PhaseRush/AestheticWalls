@@ -8,6 +8,30 @@ let poly: SimplePoint2D[] = [];
 let numSides = 100;
 let pendulum: DoublePendulum;
 
+interface Polygon {
+    x: number,
+    y: number,
+    strokeColor: string;
+}
+
+// choose one of these two. empty version will generate polygons based off of numPolySets
+const numPolySets = 3;
+const polygons: Polygon[] = [];
+
+// const polygons: Polygon[] = [{
+//     x: 1000,
+//     y: 1000,
+//     strokeColor: "#FF0000"
+// }, {
+//     x: 2000,
+//     y: 2000,
+//     strokeColor: "#00FF00"
+// }, {
+//     x: 3000,
+//     y: 3000,
+//     strokeColor: "#0000FF"
+// }];
+
 new P5((p: P5) => {
     p.setup = () => {
         _ = p;
@@ -41,6 +65,32 @@ new P5((p: P5) => {
         _.noStroke();
     }
 
+    function initPolygons() {
+        const posIncr = 2000;
+        const cUnit = Math.floor(0xff / numPolySets);
+        for (let i = 1; i < numPolySets + 1; i++) {
+            // console.log("red\t\t#" + (cUnit * (i)).toString(16) + "0000");
+            const redPoly: Polygon = {
+                x: i * posIncr / 3,
+                y: i * posIncr / 3,
+                strokeColor: "#" + (cUnit * (i)).toString(16) + "0000"
+            };
+            // console.log("green\t#00" + (cUnit * (i)).toString(16) + "00");
+            const greenPoly: Polygon = {
+                x: i * posIncr * 2 / 3,
+                y: i * posIncr * 2 / 3,
+                strokeColor: "#00" + (cUnit * (i)).toString(16) + "00"
+            };
+            // console.log("blue\t#0000" + (cUnit * (i)).toString(16));
+            const bluePoly: Polygon = {
+                x: i * posIncr,
+                y: i * posIncr,
+                strokeColor: "#0000" + (cUnit * (i)).toString(16)
+            };
+            polygons.push(redPoly, greenPoly, bluePoly);
+        }
+    }
+
     function init(): void {
         _.background(0);
         _.frameRate(60);
@@ -54,6 +104,12 @@ new P5((p: P5) => {
                 y: (_.height / 2) + (_.height / 5) * _.cos(_.map(i, 0, numSides - 1, 0, _.TAU))
             })
         }
+
+        // only procedurally generate polygons if user defined none
+        if (polygons.length === 0) {
+            initPolygons();
+        }
+
         initPendulum();
     }
 
@@ -78,14 +134,11 @@ new P5((p: P5) => {
         // use additive blend mode to separate color channels
         restoreRingSettings();
         _.blendMode(_.ADD);
-        _.stroke(255, 0, 0);
-        drawPoly(1000, 1000, pendulumDistance);
 
-        _.stroke(0, 255, 0);
-        drawPoly(2000, 2000, pendulumDistance);
-
-        _.stroke(0, 0, 255);
-        drawPoly(3000, 3000, pendulumDistance);
+        polygons.forEach(gon => {
+            _.stroke(gon.strokeColor);
+            drawPoly(gon.x, gon.y, pendulumDistance);
+        });
     };
 
     // based off of linear regression + existing p5.map function
