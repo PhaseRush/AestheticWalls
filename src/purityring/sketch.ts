@@ -27,7 +27,7 @@ new P5((p: P5) => {
         const cx = _.width / 2;
         const cy = _.height / 4;
         const nodeColor = _.color("0xFFFFFF");
-        const historyColour = _.color(0xe0, 0x22, 0xba); // #e022ba
+        const historyColour = _.color("0xFFFFFF"); // #e022ba
 
         pendulum = new DoublePendulum(
             _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, 255,
@@ -50,8 +50,8 @@ new P5((p: P5) => {
 
         for (let i = 0; i < numSides; i++) {
             poly.push({
-                x: (_.width / 2) + 100 * _.sin(_.map(i, 0, numSides - 1, 0, _.TAU)),
-                y: (_.height / 2) + 100 * _.cos(_.map(i, 0, numSides - 1, 0, _.TAU))
+                x: (_.width / 2) + (_.height / 5) * _.sin(_.map(i, 0, numSides - 1, 0, _.TAU)),
+                y: (_.height / 2) + (_.height / 5) * _.cos(_.map(i, 0, numSides - 1, 0, _.TAU))
             })
         }
         initPendulum();
