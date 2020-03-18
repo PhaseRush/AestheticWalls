@@ -1,9 +1,11 @@
 import * as P5 from 'p5'
+import {DoublePendulum} from "../doublependulum/DoublePendulum";
 
 let _: P5;
 
 let poly = [];
 let numSides = 10;
+let pendulum: DoublePendulum;
 
 new P5((p: P5) => {
     p.setup = () => {
@@ -12,13 +14,36 @@ new P5((p: P5) => {
         init();
     };
 
+    function initPendulum() {
+        const r1 = _.height / 5;
+        const r2 = _.height / 3;
+        const m1 = 20;
+        const m2 = 10;
+        const a1 = _.PI / _.randomGaussian(2, 0.4) * _.random([1, -1]);
+        const a2 = _.PI / _.randomGaussian(2, 0.4) * _.random([1, -1]);
+        const a_v1 = 0;
+        const a_v2 = 0;
+        const cx = _.width / 2;
+        const cy = _.height / 4;
+        const nodeColor = _.color("0xFFFFFF");
+        const historyColour = _.color(0xe0, 0x22, 0xba); // #e022ba
+
+        pendulum = new DoublePendulum(
+            _, 1, r1, r2, m1, m2, a1, a2, a_v1, a_v2, cx, cy, nodeColor, historyColour, 255, true
+        );
+    }
+
+    function restoreRingSettings() {
+        _.strokeWeight(12);
+        _.noFill();
+        _.noStroke();
+    }
+
     function init(): void {
         _.background(0);
         _.frameRate(60);
 
-        _.strokeWeight(12);
-        _.noFill();
-        _.noStroke();
+        restoreRingSettings();
         numSides++;
 
         for (let i = 0; i < numSides; i++) {
@@ -27,6 +52,7 @@ new P5((p: P5) => {
                 y: (_.height / 2) + 100 * _.cos(_.map(i, 0, numSides - 1, 0, _.TAU))
             })
         }
+        initPendulum();
     }
 
     p.draw = () => {
@@ -34,16 +60,25 @@ new P5((p: P5) => {
         _.blendMode(_.BLEND);
         _.background(0);
 
+        pendulum.update();
+
+        function pendulumDistance(x: number, y: number): number {
+            return _.dist(pendulumTip.x, pendulumTip.y, x, y) / 4;
+        }
+
+        const pendulumTip: { x: number, y: number } = pendulum.getTip();
+
         // use additive blend mode to separate color channels
+        restoreRingSettings();
         _.blendMode(_.ADD);
         _.stroke(255, 0, 0);
-        drawPoly(1000, 1000);
+        drawPoly(1000, 1000, pendulumDistance);
 
         _.stroke(0, 255, 0);
-        drawPoly(1200, 1500);
+        drawPoly(2000, 2000, pendulumDistance);
 
         _.stroke(0, 0, 255);
-        drawPoly(2000, 1700);
+        drawPoly(3000, 3000, pendulumDistance);
     };
 
     // based off of linear regression + existing p5.map function
@@ -56,7 +91,7 @@ new P5((p: P5) => {
     type distortionFunction = (x: number, y: number) => number;
 
     // allow for simulated mouse positions
-    function drawPoly(dx: number, dy: number, distortionFunction = (x: number, y: number) => {
+    function drawPoly(dx: number, dy: number, distortionFunction: distortionFunction = (x: number, y: number) => {
         return _.dist(_.mouseX, _.mouseY, x, y);
     }) {
         _.beginShape();
