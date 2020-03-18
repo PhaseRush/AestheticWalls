@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/purityring/sketch.ts', // Point this to the file you want to build!
+    entry: './src/problem/sketch.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
