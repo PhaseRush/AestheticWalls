@@ -14,23 +14,23 @@ interface Polygon {
     strokeColor: string;
 }
 
-// choose one of these two. empty version will generate polygons based off of numPolySets
+// choose one of these two polygons. empty version will generate polygons based off of numPolySets
 const numPolySets = 3;
-const polygons: Polygon[] = [];
+// const polygons: Polygon[] = [];
 
-// const polygons: Polygon[] = [{
-//     x: 1000,
-//     y: 1000,
-//     strokeColor: "#FF0000"
-// }, {
-//     x: 2000,
-//     y: 2000,
-//     strokeColor: "#00FF00"
-// }, {
-//     x: 3000,
-//     y: 3000,
-//     strokeColor: "#0000FF"
-// }];
+const polygons: Polygon[] = [{
+    x: 1000,
+    y: 1000,
+    strokeColor: "#FF0000"
+}, {
+    x: 2000,
+    y: 2000,
+    strokeColor: "#00FF00"
+}, {
+    x: 3000,
+    y: 3000,
+    strokeColor: "#0000FF"
+}];
 
 new P5((p: P5) => {
     p.setup = () => {

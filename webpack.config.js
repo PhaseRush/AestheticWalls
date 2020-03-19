@@ -20,5 +20,8 @@ module.exports = {
     watch: true,
     stats: {
         warnings: false
+    },
+    optimization: {
+        minimize: true // keep this on true to minimize src sizes (note: will increase compilation time by ~5x)
     }
 };
