@@ -124,13 +124,6 @@ new P5((p: P5) => {
 
         pendulum.update();
 
-        const pendulumTip: SimplePoint2D = pendulum.getTip();
-
-        function pendulumDistance(x: number, y: number): number {
-            return _.dist(pendulumTip.x, pendulumTip.y, x, y) / 4;
-        }
-
-
         // use additive blend mode to separate color channels
         restoreRingSettings();
         _.blendMode(_.ADD);
@@ -150,10 +143,16 @@ new P5((p: P5) => {
 
     type distortionFunctionType = (x: number, y: number) => number;
 
-    // allow for simulated mouse positions
-    function drawPoly(dx: number, dy: number, distortionFunction: distortionFunctionType = (x: number, y: number) => {
+    function mouseDistance(x: number, y: number): number {
         return _.dist(_.mouseX, _.mouseY, x, y);
-    }) {
+    }
+
+    function pendulumDistance(x: number, y: number): number {
+        return _.dist(pendulum.getTip().x, pendulum.getTip().y, x, y) / 4;
+    }
+
+    // allow for simulated mouse positions
+    function drawPoly(dx: number, dy: number, distortionFunction: distortionFunctionType = mouseDistance) {
         _.beginShape();
         vertices.forEach(vertex => {
             let distortion = distortionFunction(vertex.x, vertex.y);
@@ -163,4 +162,5 @@ new P5((p: P5) => {
         _.endShape();
     }
 
-});
+})
+;
