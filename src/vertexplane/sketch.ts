@@ -14,7 +14,7 @@ let distanceThreshold: number;
 
 const density = 0.004; // decrease this number to make it more dense;
 
-const fillShape: boolean = false; // true for triangles, false for wireframe
+const fillShape: boolean = true; // true for triangles, false for wireframe
 
 
 new P5((p: P5) => {

@@ -16,6 +16,9 @@ VertexPlane
 DoublePendulum
 ![Thanks gonk for tagging along](demogifs/DoublePendulum.gif)
 
+PurityRing
+![wobble wobble](demogifs/PurityRing.gif)
+
 
 ## Install Guide
 #### "I just want it to work in Wallpaper Engine"
