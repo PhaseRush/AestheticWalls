@@ -3,10 +3,7 @@ Dynamic and aesthetic wallpapers written for Wallpaper Engine, or to enjoy in yo
 
 Install guide at the bottom
 
-Here are two example gifs
-
-RotBox
-![A bit foggy in the distance, ain't it](demogifs/RotBox.gif)
+Here are some example gifs
 
 Topography
 ![Resembles a topographical map as time -> inf](demogifs/Topography.gif)
