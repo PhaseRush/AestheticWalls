@@ -1,9 +1,9 @@
 module.exports = {
-    entry: './src/vertexplane/sketch.ts', // Point this to the file you want to build!
+    entry: './src/halo/sketch.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
-        path: __dirname + '/distribution/vertex-plane-triangle'
+        path: __dirname + '/out/'
     },
     module: {
         rules: [
