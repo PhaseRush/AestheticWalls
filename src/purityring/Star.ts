@@ -4,7 +4,7 @@ export class Star {
     private static _: P5;
 
     private readonly x: number;
-    private readonly y: number;
+    private y: number;
     private readonly vy: number;
     private readonly sideLen: number;
     private readonly c: P5.Color;
