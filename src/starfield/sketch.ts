@@ -1,5 +1,6 @@
 import * as P5 from 'p5'
-import {Star} from "../purityring/Star";
+import {Star} from "./Star";
+
 
 let _: P5;
 let numStars: number = 1000;
