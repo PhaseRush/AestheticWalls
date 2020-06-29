@@ -10,7 +10,6 @@ export class Star {
     private readonly c: P5.Color;
 
     public static init(p5: P5) {
-        console.log("set");
         Star._ = p5;
     }
 
@@ -35,7 +34,7 @@ export class Star {
 
     public update() {
         this.move();
-        this.draw()
+        this.draw();
     }
 
     private move() {
