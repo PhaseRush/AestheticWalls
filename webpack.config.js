@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/starfield/sketch.ts', // Point this to the file you want to build!
+    entry: './src/dvd/sketch.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
@@ -22,6 +22,6 @@ module.exports = {
         warnings: false
     },
     optimization: {
-        minimize: true // keep this on true to minimize src sizes (note: will increase compilation time by ~5x)
+        minimize: false // keep this on true to minimize src sizes (note: will increase compilation time by ~5x)
     }
 };
