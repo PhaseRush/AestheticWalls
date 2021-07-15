@@ -4,9 +4,9 @@ import * as P5 from 'p5'
 Change this to what you want
  */
 const config = {
-    whiteOnBlack: true,
-    // imagePath: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/DVD_logo.svg/320px-DVD_logo.svg.png"
-    imagePath: `./assets/`
+    whiteOnBlack: false,
+    whiteDvd: "https://raw.githubusercontent.com/PhaseRush/AestheticWalls/master/src/dvd/dvd_white.png",
+    blackDvd: "https://raw.githubusercontent.com/PhaseRush/AestheticWalls/master/src/dvd/dvd_black.png"
 }
 
 
@@ -28,7 +28,7 @@ new P5((p: P5) => {
         _.frameRate(165);
         _.noStroke();
         _.smooth();
-        dvd = _.loadImage(config.imagePath + (config.whiteOnBlack ? "dvd_white.png" : "dvd_black.png"))
+        dvd = _.loadImage(config.whiteOnBlack ? config.whiteDvd : config.blackDvd)
 
         x = 0
         y = 0
