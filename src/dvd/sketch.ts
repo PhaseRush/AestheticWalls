@@ -4,7 +4,7 @@ import * as P5 from 'p5'
 Change this to what you want
  */
 const config = {
-    whiteOnBlack: false,
+    whiteOnBlack: true,
     whiteDvd: "https://raw.githubusercontent.com/PhaseRush/AestheticWalls/master/src/dvd/dvd_white.png",
     blackDvd: "https://raw.githubusercontent.com/PhaseRush/AestheticWalls/master/src/dvd/dvd_black.png"
 }
@@ -47,16 +47,6 @@ new P5((p: P5) => {
     p.draw = () => {
         _.background(refreshColor);
         _.image(dvd, x, y)
-
-        // if (config.whiteOnBlack) {
-        //     for (let x1 = x; x1 < dvd.width; x1++) {
-        //         for (let y1 = 0; y1 < dvd.height; y1++) {
-        //             let colour = _.get(x1, y1)
-        //             _.set(x1, y1, [colour.map(value => 1 - value)].pop().push(100))
-        //         }
-        //     }
-        // }
-
         update()
     };
 });
