@@ -8,11 +8,15 @@ const isSlowStart: boolean = true;
 const allowOffScreen: boolean = true; // allows for prettier edges at the edge of screens
 const populationRate: number = 1; // the higher the slower. Only works with slowStart
 const blurAlpha: number = 1;
+const autoReset: number = 300; // number of seconds between resets
+const frameRate: number = 60;
+
 let pointsA: Array<FreePoint> = [];
 let pointsB: Array<FreePoint> = [];
 let pointsC: Array<FreePoint> = [];
 
 let isLooping: boolean = false;
+let frameCount: number = 0;
 
 const Colour: any = {
     A: P5.Color,
@@ -29,8 +33,9 @@ new P5((p: P5) => {
     };
 
     function init(_: P5): void {
+        frameCount = 0;
         _.background(0);
-        _.frameRate(300);
+        _.frameRate(frameRate);
         _.noStroke();
         _.smooth();
         maxPoints = _.width * _.height / 12384; // 1 point per 12384 pixels, aka 400 points per 3440 x 1440
@@ -46,6 +51,11 @@ new P5((p: P5) => {
     }
 
     p.draw = () => {
+        console.log(frameCount);
+        if (frameCount++ >= frameRate * autoReset) {
+            init(_);
+            return;
+        }
         _.background(0, 0, 0, blurAlpha);
 
         if (isSlowStart) {
