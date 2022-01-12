@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/topography/sketch.ts', // Point this to the file you want to build!
+    entry: './src/eye/sketch.ts', // Point this to the file you want to build!
 
     output: {
         filename: "engine.js",
