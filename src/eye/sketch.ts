@@ -7,8 +7,13 @@ let numFrames = 100;
 let shutterAngle = 1.5;
 let n = 999;
 let points;
+let shaders;
+const textures = new Array(samplesPerFrame);
+let time = [];
+let w2, h2;
+let radius, x, y;
 
-function setup_() {
+function generatePoints() {
     points = new Array(n)
         .fill(0)
         .map((d, i) => ({
@@ -53,19 +58,13 @@ let fs = `
 		${
     new Array(samplesPerFrame)
         .fill(0)
-        .map((d, i) => `c += texture2D(tex${i}, pos);`)
+        .map((d, i) => `c += texture2D(tex${i}, pos);\n\t`)
         .join('')}
         
         c /= float(${samplesPerFrame});
         gl_FragColor = c;
     }
 `;
-
-let shaders;
-const textures = new Array(samplesPerFrame);
-let time = [];
-let w2, h2;
-let radius, x, y;
 
 function render(tex, t) {
     tex.background(0);
@@ -80,7 +79,7 @@ function render(tex, t) {
     });
     for (let i = 0; i < points.length; i++) {
         if (points[i].idx > 1) points[i].idx = 0;
-        else points[i].idx += (n/100) / n;
+        else points[i].idx += (n / 100) / n;
     }
 }
 
@@ -99,7 +98,7 @@ new P5((p: P5) => {
             }
         }
 
-        setup_();
+        generatePoints();
         _.pixelDensity(1);
         w2 = _.width / 2;
         h2 = _.height / 2;
