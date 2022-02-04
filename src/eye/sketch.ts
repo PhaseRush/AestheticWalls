@@ -2,7 +2,7 @@ import * as P5 from 'p5'
 
 let _: P5;
 
-let samplesPerFrame = 4;
+let samplesPerFrame = 2;
 let numFrames = 100;
 let shutterAngle = 1.5;
 let n = 999;
@@ -31,7 +31,7 @@ function generatePoints() {
 }
 
 let vs = `
-    precision highp float;
+    precision mediump float;
 
     attribute vec3 aPosition;
     
@@ -41,7 +41,7 @@ let vs = `
 `;
 
 let fs = `
-    precision highp float;
+    precision mediump float;
 
     uniform vec2 resolution;
     uniform float time;
@@ -67,20 +67,20 @@ let fs = `
 `;
 
 function render(tex, t) {
-    tex.background(0);
-    tex.stroke(255, 200);
+    // tex.background(0);
+    // tex.stroke(255, 200);
 
     points.forEach(pt => {
-        tex.strokeWeight(pt.size);
+        // tex.strokeWeight(pt.size);
         x = w2 + pt.rads[t] * pt.cos;
         y = h2 + pt.rads[t] * pt.sin;
         tex.stroke(_.color(pt.idx, 1, 1))
         tex.point(x, y);
     });
-    for (let i = 0; i < points.length; i++) {
-        if (points[i].idx > 1) points[i].idx = 0;
-        else points[i].idx += (n / 100) / n;
-    }
+    // for (let i = 0; i < points.length; i++) {
+        // if (points[i].idx > 1) points[i].idx = 0;
+        // else points[i].idx += (n / 100) / n;
+    // }
 }
 
 new P5((p: P5) => {
@@ -131,5 +131,7 @@ new P5((p: P5) => {
         }
 
         _.quad(-1, -1, -1, 1, 1, 1, 1, -1);
+
+        if (_.frameCount % 10 == 0) console.log(_.frameRate())
     };
 });
