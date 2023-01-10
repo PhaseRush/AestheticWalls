@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/node": "^12.12.7",
     "@types/p5": "^0.9.0",
-    "fuse-box": "^3.7.1",
+    "fuse-box": "^4.0.0",
     "typescript": "^3.7.2",
     "uglify-js": "^3.6.8",
     "webpack": "^4.41.6",
